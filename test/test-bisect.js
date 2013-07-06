@@ -5,7 +5,6 @@ exports['test find 4 in 0..10'] = function (test) {
   var expected = 4;
   test.expect(2 + 4); // 4 iterations expected
   var actual = bisect(0, 10, function (index) {
-    console.log('called with', index, 'returning', index >= expected);
     test.ok(true, "We should get called");
     called = true;
     return index >= expected;
@@ -20,7 +19,6 @@ exports['test find 3 in 0..10'] = function (test) {
   var expected = 3;
   test.expect(2 + 3); // 4 iterations expected
   var actual = bisect(0, 10, function (index) {
-    console.log('called with', index, 'returning', index >= expected);
     test.ok(true, "We should get called");
     called = true;
     return index >= expected;
@@ -69,5 +67,18 @@ exports['test find last item'] = function (test) {
   });
   test.equal(expected, actual);
   test.ok(called, "We should have called our predicate");
+  test.done();
+}
+
+
+
+exports['test with array'] = function (test) {
+  var array = ['a', 'b', 'c'];
+  var actual = bisect(array, function (element, index) {
+    test.equal('string', typeof element, "We should be testing strings");
+    test.equal('number', typeof index, "We should get the index");
+    test.equal(element, array[index], "Se should be testing the correct element");
+    return element > 'a';
+  });
   test.done();
 }
