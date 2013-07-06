@@ -63,13 +63,27 @@ exports['test find last item'] = function (test) {
   var actual = bisect(0, 10, function (index) {
     test.ok(true, "We should get called");
     called = true;
-    return false;
+    return index >= 9;
   });
   test.equal(expected, actual);
   test.ok(called, "We should have called our predicate");
   test.done();
 }
 
+
+exports['test no matching'] = function (test) {
+  var called = false;
+  var expected = 10;
+  test.expect(2 + 4); // 3 iterations expected
+  var actual = bisect(0, 10, function (index) {
+    test.ok(true, "We should get called");
+    called = true;
+    return false;
+  });
+  test.equal(expected, actual);
+  test.ok(called, "We should have called our predicate");
+  test.done();
+}
 
 
 exports['test with array'] = function (test) {

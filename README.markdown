@@ -40,6 +40,7 @@ Array.disect = function(predicate) {
 Process a bisection on indexes ranging from min to max (max not included) returning the first
 that satisfies the predicate. This means that all indices superior to the one returned MUST 
 validate the predicate as well.
+If no index validates the predicate, then max is returned
 
 * min - Number: the minimum index against which to test
 * max - Number: no indices will be tested that are equal or greater than this

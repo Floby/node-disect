@@ -36,10 +36,5 @@ module.exports = function disect(min, max, fn) {
       min = index;
     }
   }
-  if(index === max) {
-    return test(min) ? min : max;
-  }
-  else {
-    return index;
-  }
+  return test(min) ? min : max;
 };
