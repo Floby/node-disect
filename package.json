@@ -1,6 +1,6 @@
 {
   "name": "disect",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Bisection helper for javascript",
   "main": "index.js",
   "directories": {
