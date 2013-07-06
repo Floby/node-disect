@@ -1,13 +1,12 @@
 {
   "name": "disect",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Bisection helper for javascript",
   "main": "index.js",
   "directories": {
     "test": "test"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "nodeunit": "~0.8.1"
   },
