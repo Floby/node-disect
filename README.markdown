@@ -32,9 +32,29 @@ Array.prototype.disect = function(predicate) {
 }
 ```
 
+It can also be used in an asynchronous fashion
+
+```javascript
+disect(0, 100, function (index) {
+  return index >= 56;
+}, function (res) {
+  // res === 56
+})
+
+
+// or with an array
+disect([10, 20, 30], function(element, index, callback) {
+  process.nextTick(function () {
+    callback(element > 11)
+  })
+}, function (res) {
+  // res === 20
+})
+```
+
 ## Reference
 
-#### bisect(min, max, predicate)
+#### disect(min, max, predicate)
 
 Process a bisection on indexes ranging from min to max (max not included) returning the first
 that satisfies the predicate. This means that all indices superior to the one returned MUST 
@@ -46,14 +66,27 @@ If no index validates the predicate, then max is returned
 * predicate - Function(index): A callback to call to test the index. Needless to say,
 the predicate callback should be stateless
 
-#### bisect(array, predicate)
+#### disect(array, predicate)
 
 Same as above, except min and max are mapped to 0 and array.length.
 The predicates' signature differs.
 
 * array - Array: The array containing the elements to iterate on
 * predicate - Function(element, index): A callback to call to test the element of the array at the given index
-* 
+
+#### disect(min, max, predicate, callback)
+
+Async version of the previously mention variant
+
+* min - Number: the minimum index against which to test
+* max - Number: no indices will be tested that are equal or greater than this
+* predicate - Function(index, callback): A callback to call to test the index. The result of the test should
+be passed to the given callback
+* callback - Function(result): A callback that will be called once the result is found
+
+#### disect(array, predicate, callback)
+
+You should be able to figure out what this one does
 
 ## Possible evolutions
 
