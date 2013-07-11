@@ -136,3 +136,17 @@ exports['test no matching asynchronously'] = function (test) {
   });
 }.withDomain();
 
+exports['test with array asynchronously'] = function (test) {
+  var array = ['a', 'b', 'c'];
+  test.expect(3 * 2);
+  var actual = bisect(array, function (element, index, callback) {
+    test.equal('string', typeof element, "We should be testing strings");
+    test.equal('number', typeof index, "We should get the index");
+    test.equal(element, array[index], "Se should be testing the correct element");
+    setImmediate(function () {
+      callback(element > 'a');
+    })
+  }, function (res) {
+    test.done();
+  });
+}
