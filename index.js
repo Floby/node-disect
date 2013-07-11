@@ -1,12 +1,9 @@
-/**
- * find the first item in the range to validate the predicate
- */
-module.exports = function disect(min, max, fn) {
+function disect_sync (min, max, fn) {
   var array;
   var index;
   var tested = {};
 
-  if(Array.isArray(min) && arguments.length === 2) {
+  if(Array.isArray(min) && typeof fn === 'undefined') {
     array = min;
     min = 0;
     predicate = max;
@@ -37,4 +34,56 @@ module.exports = function disect(min, max, fn) {
     }
   }
   return test(min) ? min : max;
+}
+
+function disect_async (min, max, fn, result_callback) {
+  var tested = {};
+  var index;
+  function test (i, cb) {
+    if(typeof tested[i] === 'undefined') {
+      fn(i, function (res) {
+        tested[i] = res;
+        cb(res);
+      });
+    }
+    else {
+      process.nextTick(cb.bind(this, tested[i]));
+    }
+  }
+
+  function iterate () {
+    if(min+1 >= max) {
+      test(min, function (res) {
+        if(res) result_callback(min);
+        else result_callback(max);
+      })
+    }
+    else {
+      index = min + Math.floor((max-min) / 2);
+      test(index, function (res) {
+        if(res) {
+          max = index;
+        }
+        else {
+          min = index;
+        }
+        iterate();
+      })
+    }
+  }
+  process.nextTick(iterate);
+}
+
+/**
+ * find the first item in the range to validate the predicate
+ */
+module.exports = function disect(min, max, fn, callback) {
+  if (callback) {
+    disect_async(min, max, fn, callback);
+    return;
+  }
+  else {
+    return disect_sync(min, max, fn);
+  }
+
 };
