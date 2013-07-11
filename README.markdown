@@ -27,7 +27,7 @@ disect([10, 20, 30], function(element, index) {
 // returns 20;
 
 // if you're into that...
-Array.disect = function(predicate) {
+Array.prototype.disect = function(predicate) {
   return disect(this, predicate);
 }
 ```
