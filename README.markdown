@@ -43,7 +43,8 @@ If no index validates the predicate, then max is returned
 
 * min - Number: the minimum index against which to test
 * max - Number: no indices will be tested that are equal or greater than this
-* predicate - Function(index): A callback to call to test the index.
+* predicate - Function(index): A callback to call to test the index. Needless to say,
+the predicate callback should be stateless
 
 #### bisect(array, predicate)
 
@@ -52,6 +53,12 @@ The predicates' signature differs.
 
 * array - Array: The array containing the elements to iterate on
 * predicate - Function(element, index): A callback to call to test the element of the array at the given index
+* 
+
+## Possible evolutions
+
+* async predicates -> async result
+* accept iterator instead of range of indices
 
 ## License
 
