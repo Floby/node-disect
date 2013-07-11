@@ -77,7 +77,7 @@ exports['test find last item'] = function (test) {
   var actual = bisect(0, 10, function (index) {
     test.ok(true, "We should get called");
     called = true;
-    return index >= 9;
+    return index >= expected;
   });
   test.equal(expected, actual);
   test.ok(called, "We should have called our predicate");
