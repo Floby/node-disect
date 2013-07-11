@@ -34,7 +34,6 @@ Array.prototype.disect = function(predicate) {
 
 ## Reference
 
-#### new CatStream([transformer], [options])
 #### bisect(min, max, predicate)
 
 Process a bisection on indexes ranging from min to max (max not included) returning the first
